@@ -5,13 +5,16 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "my-app": "npm start --prefix my-app",
+    "dev": "concurrently \"npm run server\" \"npm run my-app\""
   },
   "author": "kartik sharma",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
+    "create-react-app": "^4.0.3",
     "express": "^4.17.1",
     "express-validator": "^6.10.1",
     "gravatar": "^1.8.1",

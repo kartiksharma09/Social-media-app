@@ -1,115 +1,117 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ProfileSchema = new mongoose.Schema({
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
     },
-    company:{
-        type:String
+    company: {
+        type: String,
     },
-    website:{
-         type:String
+    website: {
+        type: String,
     },
-    location:{
-        type:String
+    location: {
+        type: String,
     },
-    status:{
-        type:String,
-        required:true
+    status: {
+        type: String,
+        required: true,
     },
-    skills:{
-        type:[String],
-        required:true
+    skills: {
+        type: [String],
+        required: true,
     },
-    bio:{
-        type:String
+    bio: {
+        type: String,
     },
-    githubusername:{
-        type:String
+    githubusername: {
+        type: String,
     },
-    experience:[{
+    experience: [
+        {
+            title: {
+                type: String,
+                required: true,
+            },
+            company: {
+                type: String,
+                required: true,
+            },
+            location: {
+                type: String,
+            },
+            from: {
+                type: Date,
+                required: true,
+            },
+            to: {
+                type: Date,
+                required: true,
+            },
+            current: {
+                type: Boolean,
+                default: false,
+            },
+            description: {
+                type: String,
+            },
+        },
+    ],
+    education: [
+        {
+            school: {
+                type: String,
+                required: true,
+            },
+            degree: {
+                type: String,
+                required: true,
+            },
+            fieldofstudy: {
+                type: String,
+                required: true,
+            },
+            from: {
+                type: Date,
+                required: true,
+            },
+            to: {
+                type: Date,
+            },
+            current: {
+                type: Boolean,
+                default: false,
+            },
+            description: {
+                type: String,
+            },
+        },
+    ],
 
-        title:{
-            type:String,
-            required:true
+    social: {
+        youtube: {
+            type: String,
         },
-        company :{
-            type:String,
-            required:true
+        twitter: {
+            type: String,
         },
-        location:{
-            type:String
+        facebook: {
+            type: String,
         },
-        from:{
-            type:Date,
-            required:true
+        linkedin: {
+            type: String,
         },
-        to:{
-            type:Date,
-            required:true
+        instagram: {
+            type: String,
         },
-        current:{
-            type:Boolean,
-            default:false
-        },
-        description:{
-            type:String
-        }
-    }],
-    education:[{
-
-        school:{
-            type:String,
-            required:true
-        },
-        degree:{
-            type:String,
-            required:true
-        },
-        fieldofstudy:{
-            type:String,
-            required:true
-        },
-        from:{
-            type:Date,
-            required:true
-        },
-        to:{
-            type:Date
-        },
-        current:{
-            type:Boolean,
-            default:false
-        },
-        description:{
-            type:String     
-        }
-    }],
-
-    social:{
-        youtube:{
-            type:String
-        },
-        twitter:{
-            type:String
-        },
-        facebook:{
-            type:String
-        },
-        linkedin:{
-            type:String
-        },
-        instagram:{
-            type:String
-        }
     },
     date: {
-        type:Date,
-        default:Date.now
-    }  
+        type: Date,
+        default: Date.now,
+    },
 });
 
-const Profile = mongoose.model("profile",ProfileSchema);
+const Profile = mongoose.model("profile", ProfileSchema);
 
-module.exports = Profile; 
+module.exports = Profile;
