@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import {Link,withRouter} from 'react-router-dom';
 import propTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {createProfile} from '../../actions/profile';
+import {createProfile,getCurrentProfile} from '../../actions/profile';
 
-const CreateProfile = ({ createProfile,history }) => {
+const EditProfile = ({ profile:{profile,loading},createProfile,getCurrentProfile,history }) => {
     const [formData, setFormData] = useState({
         company:'',
         website:'',
@@ -21,6 +21,26 @@ const CreateProfile = ({ createProfile,history }) => {
     });
 
     const [displaySocialInputs,toggleSocialInputs] = useState(false);
+
+    useEffect(()=>{
+        getCurrentProfile();
+
+        setFormData({
+            company: loading || !profile.company ? '' : profile.company,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            skills: loading || !profile.skills ? '' : profile.skills.join(','),
+            status: loading || !profile.status ? '' : profile.status,
+            githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+            bio: loading || !profile.bio ? '' : profile.bio,
+            twitter : loading || !profile.social ? '' : profile.social.twitter,
+            youtube : loading || !profile.social ? '' : profile.social.youtube,
+            facebook : loading || !profile.social ? '' : profile.social.facebook,
+            instagram : loading || !profile.social ? '' : profile.social.instagram,
+            linkedin : loading || !profile.social ? '' : profile.social.linkedin,
+
+        })
+    },[loading])
 
     const{
         company,
@@ -41,7 +61,7 @@ const CreateProfile = ({ createProfile,history }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        createProfile(formData,history);
+        createProfile(formData,history,true);
     }
 
     return (
@@ -109,8 +129,7 @@ const CreateProfile = ({ createProfile,history }) => {
           />
           <small className="form-text"
             >If you want your latest repos and a Github link, include your
-            username</small
-          >
+            username</small>
         </div>
         <div className="form-group">
           <textarea placeholder="A short bio of yourself" name="bio" value={bio}
@@ -165,8 +184,16 @@ const CreateProfile = ({ createProfile,history }) => {
     )
 }
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
     createProfile:propTypes.func.isRequired,
+    getCurrentProfile:propTypes.func.isRequired,
+    profile:propTypes.object.isRequired 
 }
 
-export default connect(null, {createProfile})(withRouter(CreateProfile))
+
+const mapStateToProps = (state) => ({
+    profile: state.profile
+});
+
+
+export default connect(mapStateToProps, {createProfile,getCurrentProfile})(withRouter(EditProfile));

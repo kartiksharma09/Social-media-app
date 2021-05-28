@@ -15,7 +15,7 @@ const profile =(state=initialState , action)=>{
         case GET_PROFILE:
             return{
                 ...state,
-                error : payload,
+                profile : payload,
                 loading : false
             };
         case PROFILE_ERROR:
