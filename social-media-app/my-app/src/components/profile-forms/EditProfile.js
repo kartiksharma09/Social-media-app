@@ -29,18 +29,19 @@ const EditProfile = ({ profile:{profile,loading},createProfile,getCurrentProfile
             company: loading || !profile.company ? '' : profile.company,
             website: loading || !profile.website ? '' : profile.website,
             location: loading || !profile.location ? '' : profile.location,
-            skills: loading || !profile.skills ? '' : profile.skills.join(','),
             status: loading || !profile.status ? '' : profile.status,
+            skills: loading || !profile.skills ? '' : profile.skills.join(','),
             githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
             bio: loading || !profile.bio ? '' : profile.bio,
             twitter : loading || !profile.social ? '' : profile.social.twitter,
-            youtube : loading || !profile.social ? '' : profile.social.youtube,
             facebook : loading || !profile.social ? '' : profile.social.facebook,
-            instagram : loading || !profile.social ? '' : profile.social.instagram,
             linkedin : loading || !profile.social ? '' : profile.social.linkedin,
+            youtube : loading || !profile.social ? '' : profile.social.youtube,
+            instagram : loading || !profile.social ? '' : profile.social.instagram
+            
 
-        })
-    },[loading])
+        });
+    },[loading,getCurrentProfile]);
 
     const{
         company,
@@ -87,36 +88,27 @@ const EditProfile = ({ profile:{profile,loading},createProfile,getCurrentProfile
             <option value="Intern">Intern</option>
             <option value="Other">Other</option>
           </select>
-          <small className="form-text"
-            >Give us an idea of where you are at in your career</small
-          >
+          <small className="form-text">Give us an idea of where you are at in your career</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="Company" name="company" value={company}
           onChange={e => onChange(e)} />
-          <small className="form-text"
-            >Could be your own company or one you work for</small
-          >
+          <small className="form-text">Could be your own company or one you work for</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="Website" name="website" value={website}
           onChange={e => onChange(e)} />
-          <small className="form-text"
-            >Could be your own or a company website</small
-          >
+          <small className="form-text">Could be your own or a company website</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="Location" name="location" value={location}
           onChange={e => onChange(e)}/>
-          <small className="form-text"
-            >City & state suggested (eg. Boston, MA)</small
-          >
+          <small className="form-text">City & state suggested (eg. Boston, MA)</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="* Skills" name="skills" value={skills}
           onChange={e => onChange(e)}/>
-          <small className="form-text"
-            >Please use comma separated values (eg.
+          <small className="form-text">Please use comma separated values (eg.
             HTML,CSS,JavaScript,PHP)</small>
         </div>
         <div className="form-group">
@@ -127,8 +119,8 @@ const EditProfile = ({ profile:{profile,loading},createProfile,getCurrentProfile
             value={githubusername}
           onChange={e => onChange(e)}
           />
-          <small className="form-text"
-            >If you want your latest repos and a Github link, include your
+          <small className="form-text">
+            If you want your latest repos and a Github link, include your
             username</small>
         </div>
         <div className="form-group">
@@ -191,9 +183,11 @@ EditProfile.propTypes = {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     profile: state.profile
 });
 
 
-export default connect(mapStateToProps, {createProfile,getCurrentProfile})(withRouter(EditProfile));
+export default connect(mapStateToProps,
+   {createProfile,getCurrentProfile})
+   (withRouter(EditProfile));
