@@ -8,7 +8,7 @@ const AddExperience = ({addExperience,history}) => {
     const [formData, setFormData] = useState({
         company: "",
         title: "",
-        loaction: "",
+        location: "",
         from: "",
         to: "",
         current: false,
